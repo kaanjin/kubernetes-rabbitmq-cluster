@@ -14,6 +14,14 @@ spec:
       containers:
       - name: {{APP_NAME}}
         image: {{IMAGE_NAME}}
+        lifecycle:
+          postStart:
+            exec:
+              command:
+              - /bin/sh
+              - -c
+              - >
+                rabbitmqctl set_policy ha-all "." '{"ha-mode":"all"}'        
         ports:
           - name: queue-port
             containerPort: 5672
